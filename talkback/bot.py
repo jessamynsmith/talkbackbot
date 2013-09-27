@@ -31,7 +31,7 @@ class TalkBackBot(irc.IRCClient):
     def privmsg(self, user, channel, msg):
         """This will get called when the bot receives a message."""
         
-        trigger_found = False
+        trigger_found = None
         send_to = channel
         if self.factory.settings.NICKNAME.startswith(channel) or \
                 channel.startswith(self.factory.settings.NICKNAME):
@@ -40,7 +40,7 @@ class TalkBackBot(irc.IRCClient):
         else:
             for trigger in self.factory.settings.TRIGGERS:
                 if msg.lower().find(trigger) >= 0:
-                    trigger_found = True
+                    trigger_found = trigger
                     break
 
         if trigger_found:
