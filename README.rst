@@ -9,6 +9,9 @@ respond to any direct message with a quotation.
 Many quotes taken from this excellent resource:
 http://womenshistory.about.com/library/qu/blqulist.htm
 
+.. image:: https://travis-ci.org/jessamynsmith/talkbackbot.svg?branch=master
+    :target: https://travis-ci.org/jessamynsmith/talkbackbot
+
 Setup
 ------------
 
