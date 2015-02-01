@@ -1,0 +1,12 @@
+Twisted==15.0.0
+cffi==0.8.6
+characteristic==14.3.0
+cryptography==0.7.2
+enum34==1.0.4
+pyOpenSSL==0.14
+pyasn1==0.1.7
+pyasn1-modules==0.0.5
+pycparser==2.10
+service-identity==14.0.0
+six==1.9.0
+zope.interface==4.1.2

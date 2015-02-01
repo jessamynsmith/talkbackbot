@@ -1,5 +1,1 @@
-coverage
-Mock
-nose
-pyopenssl
-twisted
+-r requirements/common.txt
