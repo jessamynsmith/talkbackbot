@@ -26,11 +26,11 @@ class TalkBackBot(irc.IRCClient):
     def joined(self, channel):
         """This will get called when the bot joins the channel."""
         logging.info("[%s has joined %s]"
-            % (self.nickname, self.factory.channel))
+                     % (self.nickname, self.factory.channel))
 
     def privmsg(self, user, channel, msg):
         """This will get called when the bot receives a message."""
-        
+
         trigger_found = None
         send_to = channel
         if self.factory.settings.NICKNAME.startswith(channel) or \

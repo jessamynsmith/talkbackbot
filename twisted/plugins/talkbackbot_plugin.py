@@ -31,10 +31,10 @@ class BotServiceMaker(object):
         """
         if settings.USE_SSL:
             bot = internet.SSLClient(settings.HOST, settings.PORT,
-                TalkBackBotFactory(settings), ssl.ClientContextFactory())
+                                     TalkBackBotFactory(settings), ssl.ClientContextFactory())
         else:
             bot = internet.TCPClient(settings.HOST, settings.PORT,
-                TalkBackBotFactory(settings))
+                                     TalkBackBotFactory(settings))
         return bot
 
 

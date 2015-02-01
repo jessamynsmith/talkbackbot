@@ -3,6 +3,7 @@ import unittest
 
 from talkback.quotation_selector import QuotationSelector
 
+
 class TestQuotationSelector(unittest.TestCase):
 
     QUOTE1 = "A fool without fear is sometimes wiser than an angel with fear. ~ Nancy Astor"
@@ -12,10 +13,9 @@ class TestQuotationSelector(unittest.TestCase):
         super(TestQuotationSelector, self).setUp()
 
     def test_select(self):
-        selector = QuotationSelector(os.path.join(os.getcwd(),
-            "tests/test_quotes.txt"))
+        selector = QuotationSelector(os.path.join(os.getcwd(), "tests/test_quotes.txt"))
 
         quote = selector.select()
 
         self.assertTrue(quote in (self.QUOTE1, self.QUOTE2),
-            "Got unexpected quote: '%s'" % (quote))
+                        "Got unexpected quote: '%s'" % quote)

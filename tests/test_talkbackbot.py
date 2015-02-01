@@ -4,8 +4,9 @@ import mock
 from talkback.bot import TalkBackBotFactory
 import test_settings
 
+
 class TestTalkBackBot(unittest.TestCase):
-    
+
     CHANNEL = "#testchannel"
     QUOTE = "Nobody minds having what is too good for them. ~ Jane Austen"
     USERNAME = "tester"
@@ -40,4 +41,3 @@ class TestTalkBackBot(unittest.TestCase):
         """ Send quote directly to user even if using alternate nickname """
         self.bot.privmsg(self.USERNAME, test_settings.NICKNAME + '_', "hi")
         self.bot.msg.assert_called_with(self.USERNAME, self.QUOTE)
-        
