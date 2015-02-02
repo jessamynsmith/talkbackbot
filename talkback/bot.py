@@ -1,7 +1,7 @@
 import logging
 
 from twisted.words.protocols import irc
-from twisted.internet import reactor, protocol
+from twisted.internet import protocol
 
 from quotation_selector import QuotationSelector
 
@@ -68,5 +68,5 @@ class TalkBackBotFactory(protocol.ClientFactory):
         connector.connect()
 
     def clientConnectionFailed(self, connector, reason):
-        logging.info("connection failed: %s" % (reason))
-        reactor.stop()
+        logging.info("connection failed: %s" % reason)
+        connector.connect()
