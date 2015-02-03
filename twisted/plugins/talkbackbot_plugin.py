@@ -12,7 +12,8 @@ from zope.interface import implements
 import settings
 from talkback.bot import TalkBackBotFactory
 
-logging.basicConfig(filename=settings.LOG_FILE, level=logging.DEBUG)
+logging.basicConfig(filename=settings.LOG_FILE, level=logging.DEBUG,
+                    format='%(asctime)s %(message)s')
 
 
 class Options(usage.Options):
