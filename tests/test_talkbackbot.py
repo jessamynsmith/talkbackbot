@@ -1,5 +1,7 @@
-import unittest
 import mock
+import os
+import types
+import unittest
 
 from talkback.bot import TalkBackBotFactory
 import test_settings
@@ -17,6 +19,38 @@ class TestTalkBackBot(unittest.TestCase):
         self.bot = self.factory.buildProtocol(None)
         self.bot.msg = mock.MagicMock()
         self.bot.join = mock.MagicMock()
+
+    def test_init_no_quotes_source(self):
+        settings = types.ModuleType('test_url_settings')
+        settings.CHANNEL = "#inane"
+
+        try:
+            TalkBackBotFactory(settings)
+            self.fail("Should not be able to initialize bot with no QUOTES_FILE or QUOTES_URL")
+        except AttributeError as e:
+            self.assertEqual('Must specify either QUOTES_URL or QUOTES_FILE in settings', str(e))
+
+    def test_init_with_file(self):
+        settings = types.ModuleType('test_url_settings')
+        settings.CHANNEL = "#inane"
+        settings.QUOTES_FILE = os.path.join(os.getcwd(), "tests/test_quotes.txt")
+
+        bot = TalkBackBotFactory(settings)
+
+        expected = [
+            ' A fool without fear is sometimes wiser than an angel with fear. ~ Nancy Astor\n',
+            "    You don't manage people, you manage things. You lead people. ~ Grace Hopper"
+        ]
+        self.assertEqual(expected, bot.quotation.quotes)
+
+    def test_init_with_url(self):
+        settings = types.ModuleType('test_url_settings')
+        settings.CHANNEL = "#inane"
+        settings.QUOTES_URL = "https://example.com/api/v1/quotations/?limit=1"
+
+        bot = TalkBackBotFactory(settings)
+
+        self.assertEqual("https://example.com/api/v1/quotations/?limit=1", bot.quotation.quotes_url)
 
     @mock.patch('twisted.words.protocols.irc.IRCClient.connectionMade')
     @mock.patch('logging.info')

@@ -3,7 +3,8 @@ import logging
 from twisted.words.protocols import irc
 from twisted.internet import protocol
 
-from quotation_selector import QuotationSelector
+from file_quotation_selector import FileQuotationSelector
+from url_quotation_selector import UrlQuotationSelector
 
 
 class TalkBackBot(irc.IRCClient):
@@ -54,7 +55,12 @@ class TalkBackBotFactory(protocol.ClientFactory):
     def __init__(self, settings):
         self.settings = settings
         self.channel = self.settings.CHANNEL
-        self.quotation = QuotationSelector(self.settings.QUOTES_FILE)
+        if hasattr(settings, 'QUOTES_FILE') and settings.QUOTES_FILE:
+            self.quotation = FileQuotationSelector(self.settings)
+        elif hasattr(settings, 'QUOTES_URL'):
+            self.quotation = UrlQuotationSelector(self.settings)
+        else:
+            raise AttributeError('Must specify either QUOTES_URL or QUOTES_FILE in settings')
 
     def buildProtocol(self, addr):
         bot = TalkBackBot()

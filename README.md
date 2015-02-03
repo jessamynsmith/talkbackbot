@@ -12,6 +12,31 @@ respond to any direct message with a quotation.
 Many quotes taken from this excellent resource:
 http://womenshistory.about.com/library/qu/blqulist.htm
 
+Usage
+-----
+
+Activate virtualenv
+
+    workon talkbackbot
+
+Copy settings.py.EXAMPLE to settings.py and edit as desired
+
+    cp settings.py.EXAMPLE settings.py
+    vim settings.py
+
+Note: QUOTES_FILE should have one quotation per line. QUOTES_URL must point to a JSON API that
+provides data in tastypie format, e.g.:
+
+    {"objects": [{"author": {"name": "Corazon Aquino"}, "text": "The media's power is frail."}]}
+
+Run the bot
+
+    twistd twsrs
+
+Stop the bot
+
+    kill `cat twistd.pid`
+
 Development
 -----------
 
@@ -32,25 +57,3 @@ Run tests and view coverage:
 Check code style:
 
     flake8
-
-
-Usage
------
-
-Activate virtualenv
-
-    workon talkbackbot
-
-Copy settings.py.EXAMPLE to settings.py and edit to suit yourself
-
-    cp settings.py.EXAMPLE settings.py
-    vim settings.py
-
-Run the bot
-
-    twistd twsrs
-
-Stop the bot
-
-    kill `cat twistd.pid`
-

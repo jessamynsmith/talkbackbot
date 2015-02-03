@@ -1,19 +1,18 @@
 import os
 import unittest
 
-from talkback.quotation_selector import QuotationSelector
+from talkback.file_quotation_selector import FileQuotationSelector
+import test_settings
 
 
-class TestQuotationSelector(unittest.TestCase):
+class TestFileQuotationSelector(unittest.TestCase):
 
     QUOTE1 = "A fool without fear is sometimes wiser than an angel with fear. ~ Nancy Astor"
     QUOTE2 = "You don't manage people, you manage things. You lead people. ~ Grace Hopper"
 
-    def setUp(self):
-        super(TestQuotationSelector, self).setUp()
-
     def test_select(self):
-        selector = QuotationSelector(os.path.join(os.getcwd(), "tests/test_quotes.txt"))
+        selector = FileQuotationSelector(test_settings)
+        selector.quotes = open(os.path.join(os.getcwd(), "tests/test_quotes.txt")).readlines()
 
         quote = selector.select()
 
