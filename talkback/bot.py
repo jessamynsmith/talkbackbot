@@ -46,8 +46,9 @@ class TalkBackBot(irc.IRCClient):
 
         if trigger_found:
             quote = self.factory.quotation.select()
+            logging.info("got quote:\n\t%s" % quote)
             self.msg(send_to, quote)
-            logging.info("sent message to %s:\n\t%s" % (send_to, quote))
+            logging.info("sent message to '%s'" % send_to)
 
 
 class TalkBackBotFactory(protocol.ClientFactory):

@@ -50,3 +50,4 @@ class TestUrlQuotationSelector(unittest.TestCase):
 
         mock_get.assert_called_once_with('https://example.com/api/v1/quotations/?limit=1')
         self.assertEqual('Hi! ~ An', quote)
+        self.assertEqual(str, type(quote))

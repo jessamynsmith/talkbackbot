@@ -37,7 +37,7 @@ settings.py
 logs/*
 *.log
 
-talkbackbot.pid
+*.pid
 cover
 *.pyc
 .idea
