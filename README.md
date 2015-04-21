@@ -25,9 +25,9 @@ Copy settings.py.EXAMPLE to settings.py and edit as desired
     vim settings.py
 
 Note: QUOTES_FILE should have one quotation per line. QUOTES_URL must point to a JSON API that
-provides data in tastypie format, e.g.:
+provides data in the following format:
 
-    {"objects": [{"author": {"name": "Corazon Aquino"}, "text": "The media's power is frail."}]}
+    {"results": [{"author": "Corazon Aquino", "text": "The media's power is frail."}]}
 
 Run the bot
 

@@ -4,7 +4,7 @@ import types
 import unittest
 
 from talkback.bot import TalkBackBotFactory
-import test_settings
+import tests.test_settings
 
 
 class TestTalkBackBot(unittest.TestCase):
@@ -15,7 +15,7 @@ class TestTalkBackBot(unittest.TestCase):
 
     def setUp(self):
         super(TestTalkBackBot, self).setUp()
-        self.factory = TalkBackBotFactory(test_settings)
+        self.factory = TalkBackBotFactory(tests.test_settings)
         self.bot = self.factory.buildProtocol(None)
         self.bot.msg = mock.MagicMock()
         self.bot.join = mock.MagicMock()
@@ -46,11 +46,11 @@ class TestTalkBackBot(unittest.TestCase):
     def test_init_with_url(self):
         settings = types.ModuleType('test_url_settings')
         settings.CHANNEL = "#inane"
-        settings.QUOTES_URL = "https://example.com/api/v1/quotations/?limit=1"
+        settings.QUOTES_URL = "https://example.com/api/v2/quotations/?limit=1"
 
         bot = TalkBackBotFactory(settings)
 
-        self.assertEqual("https://example.com/api/v1/quotations/?limit=1", bot.quotation.quotes_url)
+        self.assertEqual("https://example.com/api/v2/quotations/?limit=1", bot.quotation.quotes_url)
 
     @mock.patch('twisted.words.protocols.irc.IRCClient.connectionMade')
     @mock.patch('logging.info')
@@ -92,17 +92,17 @@ class TestTalkBackBot(unittest.TestCase):
 
     def test_privmsg__private_message(self):
         """ For private messages, should send quote directly to user """
-        self.bot.privmsg(self.USERNAME, test_settings.NICKNAME, "hi")
+        self.bot.privmsg(self.USERNAME, tests.test_settings.NICKNAME, "hi")
         self.bot.msg.assert_called_with(self.USERNAME, self.QUOTE)
 
     def test_privmsg__private_message_truncated_nickname(self):
         """ Send quote directly to user even if name is truncated """
-        self.bot.privmsg(self.USERNAME, test_settings.NICKNAME[:-2], "hi")
+        self.bot.privmsg(self.USERNAME, tests.test_settings.NICKNAME[:-2], "hi")
         self.bot.msg.assert_called_with(self.USERNAME, self.QUOTE)
 
     def test_privmsg__private_message_alternate_nickname(self):
         """ Send quote directly to user even if using alternate nickname """
-        self.bot.privmsg(self.USERNAME, test_settings.NICKNAME + '_', "hi")
+        self.bot.privmsg(self.USERNAME, tests.test_settings.NICKNAME + '_', "hi")
         self.bot.msg.assert_called_with(self.USERNAME, self.QUOTE)
 
     @mock.patch('logging.info')

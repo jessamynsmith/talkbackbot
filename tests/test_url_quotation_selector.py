@@ -9,7 +9,7 @@ class TestUrlQuotationSelector(unittest.TestCase):
 
     def setUp(self):
         settings = types.ModuleType('test_url_settings')
-        settings.QUOTES_URL = "https://example.com/api/v1/quotations/?limit=1"
+        settings.QUOTES_URL = "https://example.com/api/v2/quotations/?limit=1"
         self.selector = UrlQuotationSelector(settings)
 
     @patch('requests.get')
@@ -18,7 +18,7 @@ class TestUrlQuotationSelector(unittest.TestCase):
 
         quote = self.selector.select()
 
-        mock_get.assert_called_once_with('https://example.com/api/v1/quotations/?limit=1')
+        mock_get.assert_called_once_with('https://example.com/api/v2/quotations/?limit=1')
         self.assertEqual(None, quote)
 
     @patch('requests.get')
@@ -28,26 +28,26 @@ class TestUrlQuotationSelector(unittest.TestCase):
 
         quote = self.selector.select()
 
-        mock_get.assert_called_once_with('https://example.com/api/v1/quotations/?limit=1')
+        mock_get.assert_called_once_with('https://example.com/api/v2/quotations/?limit=1')
         self.assertEqual(None, quote)
 
     @patch('requests.get')
     def test_select_invalid_response_format(self, mock_get):
-        mock_json = MagicMock(return_value={'text': 'Hi!', 'author': {'name': 'An'}})
+        mock_json = MagicMock(return_value={'text': 'Hi!', 'author': 'An'})
         mock_get.return_value = MagicMock(status_code=200, json=mock_json)
 
         quote = self.selector.select()
 
-        mock_get.assert_called_once_with('https://example.com/api/v1/quotations/?limit=1')
+        mock_get.assert_called_once_with('https://example.com/api/v2/quotations/?limit=1')
         self.assertEqual(None, quote)
 
     @patch('requests.get')
     def test_select_success(self, mock_get):
-        mock_json = MagicMock(return_value={'objects': [{'text': 'Hi!', 'author': {'name': 'An'}}]})
+        mock_json = MagicMock(return_value={'results': [{'text': 'Hi!', 'author': 'An'}]})
         mock_get.return_value = MagicMock(status_code=200, json=mock_json)
 
         quote = self.selector.select()
 
-        mock_get.assert_called_once_with('https://example.com/api/v1/quotations/?limit=1')
+        mock_get.assert_called_once_with('https://example.com/api/v2/quotations/?limit=1')
         self.assertEqual('Hi! ~ An', quote)
         self.assertEqual(str, type(quote))

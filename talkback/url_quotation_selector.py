@@ -1,6 +1,5 @@
 import logging
 import requests
-import unicodedata
 
 
 class UrlQuotationSelector(object):
@@ -13,11 +12,9 @@ class UrlQuotationSelector(object):
         response = requests.get(self.quotes_url)
         if response.status_code == 200:
             try:
-                # TODO make this flexible based on format of returned json?
-                quote_obj = response.json()['objects'][0]
-                quote = u'%s ~ %s' % (quote_obj['text'], quote_obj['author']['name'])
-                # Return str because twistd bot won't send a unicode message
-                quote = unicodedata.normalize('NFD', quote).encode('ascii', 'ignore')
+                quote_obj = response.json()['results'][0]
+                quote = '%s ~ %s' % (quote_obj['text'], quote_obj['author'])
+                quote = quote.encode('utf-8')
             except ValueError:
                 logging.error("Response from '%s' could not be decoded as JSON:\n%s"
                               % (self.quotes_url, response))

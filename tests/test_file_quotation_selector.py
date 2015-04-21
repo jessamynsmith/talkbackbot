@@ -2,7 +2,7 @@ import os
 import unittest
 
 from talkback.file_quotation_selector import FileQuotationSelector
-import test_settings
+import tests.test_settings
 
 
 class TestFileQuotationSelector(unittest.TestCase):
@@ -11,7 +11,7 @@ class TestFileQuotationSelector(unittest.TestCase):
     QUOTE2 = "You don't manage people, you manage things. You lead people. ~ Grace Hopper"
 
     def test_select(self):
-        selector = FileQuotationSelector(test_settings)
+        selector = FileQuotationSelector(tests.test_settings)
         selector.quotes = open(os.path.join(os.getcwd(), "tests/test_quotes.txt")).readlines()
 
         quote = selector.select()

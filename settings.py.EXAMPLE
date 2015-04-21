@@ -18,7 +18,7 @@ PID_FILE = "./talkbackbot.pid"
 LOG_FILE = "./talkbackbot.log"
 
 # Used to pull quotes from a web API
-QUOTES_URL = "https://underquoted.herokuapp.com/api/v1/quotations/?format=json&random=true&limit=1"
+QUOTES_URL = "https://underquoted.herokuapp.com/api/v2/quotations/?random=true&limit=1"
 
 # Used if quotes are to be pulled from a local file
 # QUOTES_FILE = "talkback/quotes.txt"
