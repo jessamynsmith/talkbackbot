@@ -1,7 +1,7 @@
 talkbackbot
 ===========
 
-[![Build Status](https://travis-ci.org/jessamynsmith/talkbackbot.svg?branch=master)](https://travis-ci.org/jessamynsmith/talkbackbot)
+[![Build Status](https://circleci.com/gh/jessamynsmith/talkbackbot.svg?style=shield)](https://circleci.com/gh/jessamynsmith/talkbackbot)
 [![Coverage Status](https://coveralls.io/repos/jessamynsmith/talkbackbot/badge.svg?branch=master)](https://coveralls.io/r/jessamynsmith/talkbackbot?branch=master)
 
 Are you tired of "That's what she said" jokes? Then this bot is for you!
