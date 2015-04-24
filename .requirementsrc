@@ -28,7 +28,4 @@ coveralls = 1.0a2
 docopt = 0.6.2
 PyYAML = 3.11
 pipreq = 0.4
-py = 1.4.26
-tox = 1.9.2
-virtualenv = 12.1.1
 
