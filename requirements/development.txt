@@ -1,5 +1,5 @@
 -r common.txt
-PyYAML==3.11
+PyYAML==5.4
 coverage==4.0a5
 coveralls==1.0a2
 docopt==0.6.2
